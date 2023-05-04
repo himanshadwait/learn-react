@@ -19,11 +19,12 @@
 ## React <a name="react"></a>
 
 React.js is a JavaScript library developed by engineers at Facebook.
-React is fast. Apps made in React can handle complex updates and still feel quick and responsive.
-React is modular. Instead of writing large, dense files of code, you can write many smaller, reusable files. React’s modularity can be a beautiful solution to JavaScript’s maintainability problems.
-React is scalable. Large programs that display a lot of changing data are where React performs best.
-React is flexible. You can use React for interesting projects that have nothing to do with making a web app. People are still figuring out React’s potential. There’s room to explore.
-React is popular. While this reason has admittedly little to do with React’s quality, the truth is that understanding React will make you more employable.
+
+- React is fast. Apps made in React can handle complex updates and still feel quick and responsive.
+- React is modular. Instead of writing large, dense files of code, you can write many smaller, reusable files. React’s modularity can be a beautiful solution to JavaScript’s maintainability problems.
+- React is scalable. Large programs that display a lot of changing data are where React performs best.
+- React is flexible. You can use React for interesting projects that have nothing to do with making a web app. People are still figuring out React’s potential. There’s room to explore.
+- React is popular. While this reason has admittedly little to do with React’s quality, the truth is that understanding React will make you more employable.
 
 ## Intro to JSX <a name="jsx"></a>
 
@@ -372,8 +373,6 @@ Are there any other HTML attributes that are reserved keywords in JavaScript tha
 
 In JSX, some HTML attributes will use camelCase and/or a different attribute name, but the two main attributes to be aware of (as we’ll use these most often and because their original HTML attribute name is a reserved JavaScript keyword) are:
 
-* `class` - which will be `className` in JSX
-* `for` - which will be `htmlFor` in JSX
-To read about more HTML attributes that use different names in JSX, check the React documentation for Tags and Attributes.
-
-
+- `class` - which will be `className` in JSX
+- `for` - which will be `htmlFor` in JSX
+  To read about more HTML attributes that use different names in JSX, check the React documentation for Tags and Attributes.
