@@ -6,7 +6,7 @@
       - [JSX Elements ](#jsx-elements-)
       - [JSX Elements And Their Surroundings ](#jsx-elements-and-their-surroundings-)
       - [Attributes In JSX ](#attributes-in-jsx-)
-    - [Nested JSX](#nested-jsx)
+      - [Nested JSX ](#nested-jsx-)
       - [JSX Outer Elements](#jsx-outer-elements)
       - [Rendering JSX](#rendering-jsx)
       - [Rendering JSX Explained](#rendering-jsx-explained)
@@ -128,7 +128,7 @@ const myH1 =
 
 ```
 
-### Nested JSX
+#### Nested JSX <a name="nested-jsx"></a>
 
 You can nest JSX elements inside of other JSX elements, just like in HTML.
 
