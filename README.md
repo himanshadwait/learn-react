@@ -1,15 +1,20 @@
 # Table of Contents
+
 - [Table of Contents](#table-of-contents)
   - [React ](#react-)
   - [Intro to JSX ](#intro-to-jsx-)
-      - [What is JSX? ](#what-is-jsx-)
-      - [JSX Elements ](#jsx-elements-)
-      - [JSX Elements And Their Surroundings ](#jsx-elements-and-their-surroundings-)
-      - [Attributes In JSX ](#attributes-in-jsx-)
-      - [Nested JSX ](#nested-jsx-)
-      - [JSX Outer Elements](#jsx-outer-elements)
-      - [Rendering JSX](#rendering-jsx)
-      - [Rendering JSX Explained](#rendering-jsx-explained)
+    - [What is JSX? ](#what-is-jsx-)
+    - [JSX Elements ](#jsx-elements-)
+    - [JSX Elements And Their Surroundings ](#jsx-elements-and-their-surroundings-)
+    - [Attributes In JSX ](#attributes-in-jsx-)
+    - [Nested JSX ](#nested-jsx-)
+    - [JSX Outer Elements](#jsx-outer-elements)
+    - [Rendering JSX](#rendering-jsx)
+    - [Rendering JSX Explained](#rendering-jsx-explained)
+    - [Passing a Variable to render()](#passing-a-variable-to-render)
+    - [The Virtual DOM](#the-virtual-dom)
+  - [Advanced JSX](#advanced-jsx)
+    - [class vs className](#class-vs-classname)
 
 ## React <a name="react"></a>
 
@@ -39,7 +44,7 @@ The answer is… a JavaScript file! Despite what it looks like, your code doesn�
 
 The part that looks like HTML, `<h1>Hello world</h1>`, is something called **JSX**.
 
-#### What is JSX? <a name="jsxDef"></a>
+### What is JSX? <a name="jsxDef"></a>
 
 JSX is a syntax extension for JavaScript. It was written to be used with React. JSX code looks a lot like HTML.
 
@@ -53,7 +58,7 @@ Are there any browsers with a JSX compiler built in?
 
 Unfortunately, there are no browsers (currently) with a JSX compiler built in. On our personal computers we will need to set up a way for our JSX code to compile when building react applications that use JSX.
 
-#### JSX Elements <a name="elements"></a>
+### JSX Elements <a name="elements"></a>
 
 A basic unit of JSX is called a JSX element.
 
@@ -66,7 +71,7 @@ Is a JSX element the same thing as an HTML element?
 
 A JSX element is not the same thing as an HTML element - a JSX element is a description of what we want to see on our page.
 
-#### JSX Elements And Their Surroundings <a name="elements-and-surroundings"></a>
+### JSX Elements And Their Surroundings <a name="elements-and-surroundings"></a>
 
 JSX elements are treated as JavaScript expressions. They can go anywhere that JavaScript expressions can go. This means that a JSX element can be saved in a variable, passed to a function, stored in an object or array… you name it.
 
@@ -74,6 +79,7 @@ Here’s an example of a JSX element being saved in a variable:
 
 `const navBar = <nav>I am a nav bar</nav>;`
 Here’s an example of several JSX elements being stored in an object:
+
 ```
 const myTeam = {
   center: <li>Benzo Walli</li>,
@@ -88,7 +94,7 @@ Do I have to use valid HTML tags when creating JSX elements?
 
 When creating JSX elements, not components, we should be using valid HTML tags - that said, React uses some DOM properties/attributes differently than in HTML. Be sure to check the React documentation when adding HTML attributes to JSX elements to make sure that 1. the syntax is correct and 2. the attribute behavior is as expected.\
 
-#### Attributes In JSX <a name="attributes"></a>
+### Attributes In JSX <a name="attributes"></a>
 
 JSX elements can have attributes, just like how HTML elements can.
 
@@ -128,7 +134,7 @@ const myH1 =
 
 ```
 
-#### Nested JSX <a name="nested-jsx"></a>
+### Nested JSX <a name="nested-jsx"></a>
 
 You can nest JSX elements inside of other JSX elements, just like in HTML.
 
@@ -183,7 +189,7 @@ Correct usage
 `let myVariable = ( <div><h1>&nbsp; Hello world!</h1></div> );`
 this way any semicolon between "(" and ")" is ignored by js interpreter.
 
-#### JSX Outer Elements
+### JSX Outer Elements
 
 A JSX expression must have exactly one outermost element.
 
@@ -243,7 +249,7 @@ render() {
 }
 ```
 
-#### Rendering JSX
+### Rendering JSX
 
 To render a JSX expression means to make it appear on screen.
 
@@ -254,7 +260,9 @@ const container = document.getElementById('app');
 const root = createRoot(container);
 root.render(<h1>Hello world</h1>);
 ```
+
 The complete code is:
+
 ```
 import React from 'react';
 import { createRoot } from 'react-dom/client';
@@ -268,7 +276,8 @@ What’s the difference between React and ReactDOM?
 
 React is a JavaScript library for building User Interfaces and ReactDOM is the JavaScript library that allows React to interact with the DOM.
 
-#### Rendering JSX Explained
+### Rendering JSX Explained
+
 Let’s examine the code that you just wrote in the last exercise.
 
 ```
@@ -276,6 +285,7 @@ const container = document.getElementById('app');
 const root = createRoot(container);
 root.render(<h1>Hello world</h1>);
 ```
+
 Before we get started it is essential to understand that React relies on two things to render: `what content to render` and `where to place the content at`.
 
 With that in mind, let’s look at the first line:
@@ -283,9 +293,9 @@ With that in mind, let’s look at the first line:
 `const container = document.getElementById('app');`
 This line:
 
-* Uses the `document` object which represents our web page.
-* Uses the `getElementById()` method of `document` to get the Element object representing the HTML element with the passed in id ```(app)```.
-* Stores the element in variable `container`.
+- Uses the `document` object which represents our web page.
+- Uses the `getElementById()` method of `document` to get the Element object representing the HTML element with the passed in id `(app)`.
+- Stores the element in variable `container`.
 
 In the next line:
 
@@ -296,3 +306,74 @@ Finally, the last line:
 
 `root.render(<h1>Hello world</h1>)`
 uses the `render()` method of `root` to render the content passed in as an argument. Here we pass an `<h1>` element, which displays Hello world. This is the "what content to render" part of React rendering.
+
+Is the ReactDOM library built into the React library?
+
+ReactDOM is not included in the generic React library. When we include the generic React library as a `<script>` tag in our HTML we will also have to include a `<script>` tag for the ReactDOM library if we want to use ReactDOM. We no longer use CDN links
+to include React in our existing projects.
+
+### Passing a Variable to render()
+
+In the previous exercise, we saw how we can create a React root using `createRoot()` and use its `render()` method to render JSX.
+
+The `render()` method’s argument doesn’t need to be JSX, but it should evaluate to a JSX expression. The argument could also be a variable, so long as that variable evaluates to a JSX expression.
+
+In this example, we save a JSX expression as a variable named `toDoList`. We then pass `toDoList` as the argument of `render()`:
+
+```
+const toDoList = (
+  <ol>
+    <li>Learn React</li>
+    <li>Become a Developer</li>
+  </ol>
+);
+
+const container = document.getElementById('app');
+const root = createRoot(container);
+root.render(toDoList);
+```
+
+Why use a variable as the first argument in `ReactDOM.render()` instead of a JSX expression?
+
+Readability! If we are trying to pass a multi-line JSX expression to `ReactDOM.render()` we may find our JSX code is difficult to read and understand, however, if our JSX expression is a single line, we may want to pass the expression (instead of a variable storing the expression) to `ReactDOM.render()`.
+
+### The Virtual DOM
+
+One special thing about a React root's `render()` method is that it only updates DOM elements that have changed.
+
+That means that if you render the exact same thing twice in a row, the second render will do nothing:
+
+`const hello = <h1>Hello world</h1>;`
+
+// This will add "Hello world" to the screen:
+`root.render(hello, document.getElementById('app'));`
+
+// This won't do anything at all:
+`root.render(hello, document.getElementById('app'));`
+This is significant! Only updating the necessary DOM elements is a large part of what makes React so successful. This is accomplished using React’s virtual DOM.
+
+## Advanced JSX
+
+### class vs className
+
+Grammar in JSX is mostly the same as in HTML, but there are subtle differences to watch out for. The most frequent of these involves the word `class`.
+
+In HTML, it’s common to use `class` as an attribute name:
+
+`<h1 class="big">Title</h1>`
+In JSX, you can’t use the word `class`! You have to use `className` instead:
+
+`<h1 className="big">Title</h1>`
+This is because JSX gets translated into JavaScript, and `class` is a reserved word in JavaScript.
+
+When JSX is rendered, JSX `className` attributes are automatically rendered as `class` attributes.
+
+Are there any other HTML attributes that are reserved keywords in JavaScript that I wont be able to use in JSX?
+
+In JSX, some HTML attributes will use camelCase and/or a different attribute name, but the two main attributes to be aware of (as we’ll use these most often and because their original HTML attribute name is a reserved JavaScript keyword) are:
+
+* `class` - which will be `className` in JSX
+* `for` - which will be `htmlFor` in JSX
+To read about more HTML attributes that use different names in JSX, check the React documentation for Tags and Attributes.
+
+
