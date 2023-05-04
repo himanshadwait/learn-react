@@ -132,7 +132,7 @@ const myH1 =
 
 You can nest JSX elements inside of other JSX elements, just like in HTML.
 
-Here’s an example of a JSX <h1> element, nested inside of a JSX <a> element:
+Here’s an example of a JSX `<h1> `element, nested inside of a JSX `<a>` element:
 
 `<a href="https://www.example.com"><h1>Click me!</h1></a>`
 To make this more readable, you can use HTML-style line breaks and indentation:
