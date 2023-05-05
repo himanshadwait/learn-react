@@ -15,6 +15,9 @@
     - [The Virtual DOM](#the-virtual-dom)
   - [Advanced JSX](#advanced-jsx)
     - [class vs className](#class-vs-classname)
+    - [Self-Closing Tags](#self-closing-tags)
+    - [JavaScript In JSX In JavaScript file](#javascript-in-jsx-in-javascript-file)
+    - [Curly Braces in JSX](#curly-braces-in-jsx)
 
 ## React <a name="react"></a>
 
@@ -376,3 +379,108 @@ In JSX, some HTML attributes will use camelCase and/or a different attribute nam
 - `class` - which will be `className` in JSX
 - `for` - which will be `htmlFor` in JSX
   To read about more HTML attributes that use different names in JSX, check the React documentation for Tags and Attributes.
+
+### Self-Closing Tags
+
+Another common JSX error involves self-closing tags.
+
+What’s a self-closing tag?
+
+Most HTML elements use two tags: an opening tag `(<div>)`, and a closing tag `(</div>)`. However, some HTML elements such as `<img>` and `<input>` use only one tag. The tag that belongs to a single-tag element isn’t an opening tag or a closing tag; it’s a self-closing tag.
+
+When you write a self-closing tag in HTML, it is optional to include a forward slash immediately before the final angle bracket:
+
+```
+// Fine in HTML with a slash:
+<br />
+
+// Also fine, without the slash:
+<br>
+```
+
+But, in JSX, you have to include the slash. If you write a self-closing tag in JSX and forget the slash, you will raise an error:
+
+```
+// Fine in JSX:
+<br />
+
+// NOT FINE AT ALL in JSX:
+<br>
+```
+
+Can I use self-closing tag syntax for any HTML elements I use in JSX?
+
+You can! HTML elements we write in JSX can be self-closing as long as we use the forward-slash with right angle bracket to close the element tag.
+
+For example:
+
+`<div className="myDiv" />`
+Now when would this be useful? Making a self-closing element is useful when said element has no children, this should be the only time we use self-closing syntax for HTML elements that are normally not self-closing.
+
+### JavaScript In JSX In JavaScript file
+
+So far, we’ve focused on writing JSX expressions. It’s similar to writing bits of HTML, but inside of a JavaScript file.
+
+Now, we’re going to add something new: regular JavaScript, written inside of a JSX expression, written inside of a JavaScript file.
+
+Why would we want to put JavaScript in our JSX?
+
+We want to use JavaScript in our JSX to render logic!
+
+When we inject JS into JSX we can make this process of rendering logic (based on things like data, events, and data changing over time) more seamless by putting our markup, the HTML part of JSX, that is based on our logic, the JS part of JSX, together in the same file.
+
+```
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+
+const container = document.getElementById('app');
+const root = createRoot(container);
+// Write code here:
+root.render(<h1>2 + 3</h1>);
+```
+
+### Curly Braces in JSX
+
+The last piece of code didn’t behave as one might expect. Instead of adding 2 and 3, it printed out "2 + 3" as a string of text. Why?
+
+This happened because 2 + 3 is located in between `<h1>` and `</h1>` tags.
+
+Any code in between the tags of a JSX element will be read as JSX, not as regular JavaScript! JSX doesn’t add numbers—it reads them as text, just like HTML.
+
+You need a way to write code that says, “Even though I am located in between JSX tags, treat me like ordinary JavaScript and not like JSX.”
+
+You can do this by wrapping your code in **curly braces**.
+
+Everything inside of the curly braces will be treated as regular JavaScript.
+
+```
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+
+const container = document.getElementById('app');
+const root = createRoot(container);
+// Write code here:
+root.render(<h1>{2 + 3}</h1>);
+```
+
+Am I always going to use curly braces to write JavaScript inside of JSX?
+
+Yes! If we want any expression to be treated as JavaScript inside of a JSX element we need to wrap it in curly braces. Even when we assign a JavaScript expression to a variable and want to use that variable inside JSX, the variable name needs to be wrapped in curly braces.
+
+Example:
+
+```
+app.js:
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+let myVar = 'hello!';
+
+const myJsxElement = <h1>myVar value is {myVar}</h1>; // `myVar` without curly braces will render as `myVar` in the browser, while `{myVar}` will render as `hello!` in the browser
+
+ReactDOM.render(
+        myJsxElement,
+        document.getElementById('app')
+)
+```
