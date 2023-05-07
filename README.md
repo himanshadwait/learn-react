@@ -480,7 +480,9 @@ import ReactDOM from 'react-dom';
 
 let myVar = 'hello!';
 
-const myJsxElement = <h1>myVar value is {myVar}</h1>; // `myVar` without curly braces will render as `myVar` in the browser, while `{myVar}` will render as `hello!` in the browser
+const myJsxElement = <h1>myVar value is {myVar}</h1>;
+// `myVar` without curly braces will render as `myVar` 
+// in the browser, while `{myVar}` will render as `hello!` in the browser
 
 ReactDOM.render(
         myJsxElement,
@@ -660,9 +662,14 @@ function switchHeading() {
 const heading = (
   <h1 onClick={switchHeading}>Click Me!</h1>
 
-  // onClick will listen for the click event, then will call switchHeading. When that occurrs we will see 'switchHeading was called!' logged to the console
+  // onClick will listen for the click event, then will
+  // call switchHeading. When that occurrs we will see
+  // 'switchHeading was called!' logged to the console
 
-  // if <h1 onClick={switchHeading()}>Click Me!</h1> is used instead, and we set onClick to a function call, we will see 'switchHeading was called!' logged to the console immediately when our JSX renders and not on the click event
+  // if <h1 onClick={switchHeading()}>Click Me!</h1>
+  // is used instead, and we set onClick to a function call,
+  // we will see 'switchHeading was called!' logged to the
+  // console immediately when our JSX renders and not on the click event
 )
 
 ReactDOM.render(heading, document.getElementById('app'));
