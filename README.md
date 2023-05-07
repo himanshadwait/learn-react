@@ -18,6 +18,9 @@
     - [Self-Closing Tags](#self-closing-tags)
     - [JavaScript In JSX In JavaScript file](#javascript-in-jsx-in-javascript-file)
     - [Curly Braces in JSX](#curly-braces-in-jsx)
+    - [Variables in JSX](#variables-in-jsx)
+    - [Variable Attributes in JSX](#variable-attributes-in-jsx)
+    - [Event Listeners in JSX](#event-listeners-in-jsx)
 
 ## React <a name="react"></a>
 
@@ -483,4 +486,184 @@ ReactDOM.render(
         myJsxElement,
         document.getElementById('app')
 )
+```
+
+We can see a JSX expression that displays the first twenty digits of pi.
+
+Study the expression and notice the following:
+
+The code is written in a JavaScript file. By default, it will all be treated as regular JavaScript.
+
+Find `<div>` on line 5. From there, up through `</div>`, the code will be treated as JSX.
+
+Find `Math`. From there, up through `(20)`, the code will be treated as regular JavaScript again.
+
+The curly braces themselves won’t be treated as JSX or as JavaScript. They are markers that signal the beginning and end of a JavaScript injection into JSX, similar to the quotation marks that signal the boundaries of a string.
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const pi = (
+  <div>
+    <h1>
+      PI, YALL!
+    </h1>
+    <p>
+      {Math.PI.toFixed(20)}
+    </p>
+  </div>
+);
+
+ReactDOM.render(
+	pi,
+	document.getElementById('app')
+);
+```
+
+### Variables in JSX
+
+When you inject JavaScript into JSX, that JavaScript is part of the same environment as the rest of the JavaScript in your file.
+
+That means that you can access variables while inside of a JSX expression, even if those variables were declared outside of the JSX code block.
+
+```
+// Declare a variable:
+const name = 'Gerdo';
+
+// Access your variable inside of a JSX expression:
+const greeting = <p>Hello, {name}!</p>;
+```
+
+Can I inject other programming languages besides JavaScript into JSX?
+
+No, we cannot inject other programming languages other than JavaScript into JSX. We can only inject vaild JavaScript expression into JSX by wrapping the JS expression in curly braces.
+
+When should I assign a variable to a JavaScript expression that I want to use in a JSX expression?
+
+The use of variables to store JavaScript expressions will largely be based on preference. However, we will usually want to use variables assigned to our JS expressions when our JS code would otherwise be hard to read/follow before using our JS expression inside of our JSX.
+For example:
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+ReactDOM.render(<h1>two + two = {2 + 2}</h1>, document.getElementById('app'));
+// Here, the JavaScript expression `2+2` is easy to read
+// and understand what's going on in the code
+```
+
+vs.
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const myFunc  = (a, b) => {
+  //do some logic or calculations with parameters here
+}
+
+
+ReactDOM.render(<h1>{myFunc(3,4)}</h1>, document.getElementById('app'));
+// Here, we assign a function to the variable `myFunc` then call the myFunc
+// fuction from inside our JSX - this is especially useful if the logic
+// inside myFunc would be difficult to read and understand from inside a JSX expression
+```
+
+### Variable Attributes in JSX
+
+When writing JSX, it’s common to use variables to set attributes.
+
+Here’s an example of how that might work:
+
+```
+// Use a variable to set the `height` and `width` attributes:
+
+const sideLength = "200px";
+
+const panda = (
+  <img
+    src="images/panda.jpg"
+    alt="panda"
+    height={sideLength}
+    width={sideLength} />
+);
+```
+
+Notice how in this example, the `<img />‘s` attributes each get their own line. This can make your code more readable if you have a lot of attributes for one element.
+
+Object properties are also often used to set attributes:
+
+```
+const pics = {
+  panda: "http://bit.ly/1Tqltv5",
+  owl: "http://bit.ly/1XGtkM3",
+  owlCat: "http://bit.ly/1Upbczi"
+};
+
+const panda = (
+  <img
+    src={pics.panda}
+    alt="Lazy Panda" />
+);
+
+const owl = (
+  <img
+    src={pics.owl}
+    alt="Unimpressed Owl" />
+);
+
+const owlCat = (
+  <img
+    src={pics.owlCat}
+    alt="Ghastly Abomination" />
+);
+```
+
+### Event Listeners in JSX
+
+JSX elements can have event listeners, just like HTML elements can. Programming in React means constantly working with event listeners.
+
+You create an event listener by giving a JSX element a special attribute. Here’s an example:
+
+`<img onClick={clickAlert} />`
+An event listener attribute's name should be something like `onClick` or `onMouseOver`: the word `on` plus the type of event that you're listening for. Look through the [common components list in React docs](https://react.dev/reference/react-dom/components/common#) to browse supported event names.
+
+An event listener attribute's value should be a function. The above example would only work if `clickAlert` were a valid function that had been defined elsewhere:
+
+```
+function clickAlert() {
+  alert('You clicked this image!');
+}
+
+<img onClick={clickAlert} />
+```
+
+Note that in HTML, event listener names are written in all lowercase, such as `onclick` or `onmouseover`. In JSX, event listener names are written in camelCase, such as `onClick` or `onMouseOver`.
+
+Remember, since attributes are a part of JSX expressions, you will need to inject JavaScript in order to use `clickAlert`.
+
+Why don’t we set the event listener attribute value to a function call?
+
+If we set the event listener attribute value to a function call, the function will get called automatically on the page load (when our JSX element renders to the browser) instead of listening for the event and then calling the function.
+
+For example:
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+function switchHeading() {
+  console.log('switchHeading was called!');
+}
+
+const heading = (
+  <h1 onClick={switchHeading}>Click Me!</h1>
+
+  // onClick will listen for the click event, then will call switchHeading. When that occurrs we will see 'switchHeading was called!' logged to the console
+
+  // if <h1 onClick={switchHeading()}>Click Me!</h1> is used instead, and we set onClick to a function call, we will see 'switchHeading was called!' logged to the console immediately when our JSX renders and not on the click event
+)
+
+ReactDOM.render(heading, document.getElementById('app'));
 ```
