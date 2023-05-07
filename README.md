@@ -21,6 +21,10 @@
     - [Variables in JSX](#variables-in-jsx)
     - [Variable Attributes in JSX](#variable-attributes-in-jsx)
     - [Event Listeners in JSX](#event-listeners-in-jsx)
+    - [JSX Conditionals: If Statements That Don't Work](#jsx-conditionals-if-statements-that-dont-work)
+    - [JSX Conditionals: If Statements That Do Work](#jsx-conditionals-if-statements-that-do-work)
+    - [JSX Conditionals: The Ternary Operator](#jsx-conditionals-the-ternary-operator)
+    - [JSX Conditionals: \&\&](#jsx-conditionals-)
 
 ## React <a name="react"></a>
 
@@ -481,7 +485,7 @@ import ReactDOM from 'react-dom';
 let myVar = 'hello!';
 
 const myJsxElement = <h1>myVar value is {myVar}</h1>;
-// `myVar` without curly braces will render as `myVar` 
+// `myVar` without curly braces will render as `myVar`
 // in the browser, while `{myVar}` will render as `hello!` in the browser
 
 ReactDOM.render(
@@ -674,3 +678,149 @@ const heading = (
 
 ReactDOM.render(heading, document.getElementById('app'));
 ```
+
+### JSX Conditionals: If Statements That Don't Work
+
+Great work! you've learned how to use curly braces to inject JavaScript into a JSX expression!
+
+Here’s a rule that you need to know: you can not inject an if statement into a JSX expression.
+
+This code will break:
+
+```
+(
+  <h1>
+    {
+      if (purchase.complete) {
+        'Thank you for placing an order!'
+      }
+    }
+  </h1>
+)
+```
+
+What if you want a JSX expression to render but only under certain circumstances? You can’t inject an if statement. What can you do?
+
+You have lots of options. let's explore some simple ways to write conditionals (expressions that are only executed under certain conditions) in JSX.
+
+### JSX Conditionals: If Statements That Do Work
+
+How can you write a conditional if you can't inject an if statement into JSX?
+
+One option is to write an if statement and not inject it into JSX.
+
+Look at the following code. Follow the if statement.
+
+This works because the words if and else are not injected in between JSX tags. The if statement is on the outside, and no JavaScript injection is necessary.
+
+This is a common way to express conditionals in JSX.
+
+```
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+
+const container = document.getElementById('app');
+const root = createRoot(container);
+let message;
+
+if (user.age >= drinkingAge) {
+  message = (
+    <h1>
+      Hey, check out this alcoholic beverage!
+    </h1>
+  );
+} else {
+  message = (
+    <h1>
+      Hey, check out these earrings I got at Claire's!
+    </h1>
+  );
+}
+
+root.render(message);
+```
+
+Is there a way to conditionally show or hide an element?
+
+When using a conditional to render an element, we can return null for a condition to make sure an element does not render based on the condition.
+
+For example:
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+function showOrHide () {
+  let myHideObj = {
+    hide: false
+  }
+
+  if (myHideObj.hide === false) {
+    let innerElement = (
+      <h1>Not hidden!</h1>
+    )
+    return innerElement;
+    // when myHideObj.hide property is set to false the if statement
+    // will return innerElement and will render the element
+
+  } else {
+    return null;
+    // when myHideObj.hide property is set to true we can return null
+    // to make sure no element is rendered based on our condition
+  }
+}
+
+const myElement = (
+  <div>{showOrHide()}</div>
+)
+
+ReactDOM.render(myElement, document.getElementById('app'));
+```
+
+### JSX Conditionals: The Ternary Operator
+
+There’s a more compact way to write conditionals in JSX: the ternary operator.
+
+The ternary operator works the same way in React as it does in regular JavaScript. However, it shows up in React surprisingly often.
+
+Recall how it works: you write `x ? y : z`, where x, y, and z are all JavaScript expressions. When your code is executed, x is evaluated as either "truthy" or "falsy". If x is truthy, then the entire ternary operator returns y. If x is falsy, then the entire ternary operator returns z.
+
+Here’s how you might use the ternary operator in a JSX expression:
+
+```
+const headline = (
+  <h1>
+    { age >= drinkingAge ? 'Buy Drink' : 'Do Teen Stuff' }
+  </h1>
+);
+```
+
+In the above example, if age is greater than or equal to drinkingAge, then headline will equal `<h1>Buy Drink</h1>`. Otherwise, headline will equal `<h1>Do Teen Stuff</h1>`.
+
+Why can I use a ternary operator inside a JSX expression but not an if statement?
+
+We can use a ternary operator, also known as a conditional operator, inside a JSX expression because it will always evaluate to a value, where as an `if/else/else if` statement is not only not an expression (it’s a statement and will execute a statement based on the value of an expression), but will also not evaluate to a value.
+
+In other words, we cannot use a statement where a value (or expression) is expected and for this reason, we cannot use statements, including the conditional `if/else/else if` statements, inside a JSX expression.
+
+### JSX Conditionals: &&
+We’re going to cover one final way of writing conditionals in React: the && operator.
+
+Like the ternary operator, && is not React-specific, but it shows up in React very often.
+
+&& works best for conditionals that will sometimes do an action but other times do nothing at all.
+
+Here’s an example:
+
+```
+const tasty = (
+  <ul>
+    <li>Applesauce</li>
+    { !baby && <li>Pizza</li> }
+    { age > 15 && <li>Brussels Sprouts</li> }
+    { age > 20 && <li>Oysters</li> }
+    { age > 25 && <li>Grappa</li> }
+  </ul>
+);
+```
+If the expression on the left of the && evaluates as true, then the JSX on the right of the && will be rendered. If the first expression is false, however, then the JSX to the right of the && will be ignored and not rendered.
