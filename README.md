@@ -808,11 +808,11 @@ In other words, we cannot use a statement where a value (or expression) is expec
 
 #### && operator
 
-We’re going to cover one final way of writing conditionals in React: the && operator.
+We’re going to cover one final way of writing conditionals in React: the `&&` operator.
 
-Like the ternary operator, && is not React-specific, but it shows up in React very often.
+Like the ternary operator, `&&` is not React-specific, but it shows up in React very often.
 
-&& works best for conditionals that will sometimes do an action but other times do nothing at all.
+`&&` works best for conditionals that will sometimes do an action but other times do nothing at all.
 
 Here’s an example:
 
@@ -828,4 +828,14 @@ const tasty = (
 );
 ```
 
-If the expression on the left of the && evaluates as true, then the JSX on the right of the && will be rendered. If the first expression is false, however, then the JSX to the right of the && will be ignored and not rendered.
+If the expression on the left of the `&&` evaluates as true, then the JSX on the right of the `&&` will be rendered. If the first expression is false, however, then the JSX to the right of the `&&` will be ignored and not rendered.
+
+When should I use an `if` statement, a ternary operator, or the `&&` operator?
+
+We should decide to use either an `if` statement, ternary operator, or the `&&` operator based on what is most concise while still maintaining readability.
+
+Tips to help decide on which conditional statement or operator to use:
+
+- the `&&` and ternary operators are more concise, choose either of these when possible
+- choose the `&&` over a ternary when you want an action to occur (or not) based on a single condition
+- choose an `if/else/else if` statement when you need to extrapolate logic to make it easier to read and understand
