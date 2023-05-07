@@ -21,10 +21,11 @@
     - [Variables in JSX](#variables-in-jsx)
     - [Variable Attributes in JSX](#variable-attributes-in-jsx)
     - [Event Listeners in JSX](#event-listeners-in-jsx)
-    - [JSX Conditionals: If Statements That Don't Work](#jsx-conditionals-if-statements-that-dont-work)
-    - [JSX Conditionals: If Statements That Do Work](#jsx-conditionals-if-statements-that-do-work)
-    - [JSX Conditionals: The Ternary Operator](#jsx-conditionals-the-ternary-operator)
-    - [JSX Conditionals: \&\&](#jsx-conditionals-)
+    - [JSX Conditionals](#jsx-conditionals)
+      - [If Statements That Don't Work](#if-statements-that-dont-work)
+      - [If Statements That Do Work](#if-statements-that-do-work)
+      - [The Ternary Operator](#the-ternary-operator)
+      - [\&\& operator](#-operator)
 
 ## React <a name="react"></a>
 
@@ -679,7 +680,9 @@ const heading = (
 ReactDOM.render(heading, document.getElementById('app'));
 ```
 
-### JSX Conditionals: If Statements That Don't Work
+### JSX Conditionals
+
+#### If Statements That Don't Work
 
 Great work! you've learned how to use curly braces to inject JavaScript into a JSX expression!
 
@@ -703,7 +706,7 @@ What if you want a JSX expression to render but only under certain circumstances
 
 You have lots of options. let's explore some simple ways to write conditionals (expressions that are only executed under certain conditions) in JSX.
 
-### JSX Conditionals: If Statements That Do Work
+#### If Statements That Do Work
 
 How can you write a conditional if you can't inject an if statement into JSX?
 
@@ -777,7 +780,7 @@ const myElement = (
 ReactDOM.render(myElement, document.getElementById('app'));
 ```
 
-### JSX Conditionals: The Ternary Operator
+#### The Ternary Operator
 
 There’s a more compact way to write conditionals in JSX: the ternary operator.
 
@@ -803,7 +806,8 @@ We can use a ternary operator, also known as a conditional operator, inside a JS
 
 In other words, we cannot use a statement where a value (or expression) is expected and for this reason, we cannot use statements, including the conditional `if/else/else if` statements, inside a JSX expression.
 
-### JSX Conditionals: &&
+#### && operator
+
 We’re going to cover one final way of writing conditionals in React: the && operator.
 
 Like the ternary operator, && is not React-specific, but it shows up in React very often.
@@ -823,4 +827,5 @@ const tasty = (
   </ul>
 );
 ```
+
 If the expression on the left of the && evaluates as true, then the JSX on the right of the && will be rendered. If the first expression is false, however, then the JSX to the right of the && will be ignored and not rendered.
